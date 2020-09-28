@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Sign In{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="has-text-centered">
+        <h4 class='has-text-weight-bold'>Sign In</h4>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class='button is-success' type="submit">Sign In</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

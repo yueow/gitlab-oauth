@@ -1,0 +1,90 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GitLab OAuth Task{% endblock title %}</title>
+    {% load static %}
+
+    
+    <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+    <!-- Overhang(Notifications) -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/overhang.min.css' %}" />
+    <script type="text/javascript" src="{% static 'js/overhang.min.js' %}"></script>
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+               <h1 class='has-text-weight-bold'>GitLab OAuth Task</h1>
+            </a>
+
+            <a role="button" class="navbar-burger burger" aria-label="menu"
+                aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href='{% url "core:home" %}'>
+                    GitLab Profile
+                </a>
+
+                <a class="navbar-item" href='#'>
+                    Home Page
+                </a>
+
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        {% if request.user.is_anonymous %}
+                            <a class="button is-success" href='{% url "core:home" %}'>
+                                Sign in
+                            </a>
+                        {% else %}
+                            <p class='mr-5'>Hello, {{ request.user }} !</p>
+                        
+                            <a class="button is-info" href='{% url "core:logout" %}?next={% url "core:home" %}'>
+                                Logout
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- /Navbar -->
+
+    {% block content %}
+    {% endblock content %}
+
+    <script>
+        {% if messages %}
+            {% for message in messages %}        
+
+                $("body").overhang({
+                type: "{{ message.tags }}",
+                message: "{{ message }}",
+                closeConfirm: true,
+                });
+
+            {% endfor %}
+        {% endif %}
+
+    </script>
+</body>
+
+</html>

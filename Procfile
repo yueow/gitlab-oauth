@@ -1,0 +1,1 @@
+web: gunicorn gitlab_sign_in_oauth.wsgi
