@@ -10,6 +10,8 @@
             {{ form.as_p }}
             <button class='button is-success' type="submit">Sign In</button>
         </form>
+            <p><strong>-- or --</strong></p>
+            <a href="{% url 'social:begin' 'gitlab' %}">Login with GitLab</a><br>
     </div>
 </div>
 {% endblock %}

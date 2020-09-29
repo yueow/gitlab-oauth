@@ -1,6 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
-        <h1>Index Page</h1>
+        {% if request.user.is_anonymous %}
+        <p class='has-bold-text has-center-text'>To see user's profile and active repositories - Sign In, please.</p>
+        {% else %}
+        <div>    
+            <p class='mr-5'>Hello, <a href="{{ request.user.profile.profile_url }}">{{ request.user }}</a> !</p>
+            <img src="{{ request.user.profile.avatar_url }}" alt="{{ request.user}}">
+
+            <hr>
+            <p>Repositories</p>
+            
+            {% for rep in request.user.profile.projects_json %}
+                <a href="{{ rep.web_url }}">
+                    <p>{{ forloop.counter}} - [Rep ID: {{ rep.id }}] - {{ rep.name}}</p>
+                </a>
+            {% empty %}
+                <p>No Repositories ):</p>
+            {% endfor %}
+        </div>
+
+
+    {% endif %}
     </div>
 {% endblock content %}

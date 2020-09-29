@@ -1,8 +1,14 @@
+import json
+import requests
+
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.conf import settings
+
+from core.models import Profile
 
 
 class SignInView(SuccessMessageMixin, LoginView):
@@ -12,6 +18,8 @@ class SignInView(SuccessMessageMixin, LoginView):
 
 class HomeView(View):
     template_name = 'index.html'
+    
     def get(self, request, *args, **kwargs):
         ctx = {}
         return render(request, self.template_name, ctx)
+    
